@@ -18,6 +18,8 @@
 
 # Project Structure
 
+```
+
 .
 ├── cerinta.md
 ├── csvs -> Data sources
@@ -38,3 +40,5 @@
     ├── din_insert_angajati.sql
     ├── din_insert_attendance.sql
     └── din_insert_pontaje.sql
+
+```
