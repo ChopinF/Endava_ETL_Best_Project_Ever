@@ -1,3 +1,4 @@
+--bun bun
 SELECT owner, table_name
   FROM dba_tables;
   
