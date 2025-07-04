@@ -158,7 +158,8 @@ end;
 -- 4. sesiunile de training / meeting-uri la care a participat
 -- 5. zile libere (optional)
 
--- prima varianta -> un view denormalizat per angajat / luna
+-- un view denormalizat per angajat / luna
+-- to be better : materialized view
 create or replace view raport_lunar_angajati as
 select
     a.ID_Angajat,
@@ -169,9 +170,10 @@ select
     listagg(distinct ab.Summary || ' (' || TO_CHAR(ab.Data_Start, 'DD.MM') || '-' || TO_CHAR(ab.Data_Stop, 'DD.MM') || ')', '; ')
         within group (order by ab.Data_Start) as Absente, -- liste absente : tip si perioada
     
-    -- Lista traininguri / întâlniri
+    -- lista traininguri / meeting-uri si practic daca are rol de cel care e participant -> Presenter   
+    -- rolul de "Organizer" e doar la o singura persoana, prima
     listagg(distinct case 
-                WHEN LOWER(r.Role) LIKE '%training%' THEN r.Name || ' [' || TO_CHAR(r.First_Join, 'DD.MM') || ']' 
+            WHEN LOWER(r.Role) = 'presenter' THEN r.Name || ' [' || TO_CHAR(r.First_Join, 'DD.MM') || ']'
                 ELSE NULL 
             END, '; ')
         WITHIN GROUP (ORDER BY r.First_Join) AS Traininguri

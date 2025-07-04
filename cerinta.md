@@ -1,15 +1,21 @@
-### Inputs
+## Date de intrare (Inputs)
 
-1. DB-ul nostru de timesheet, pe care l-am făcut pentru RDBMS; dacă nu are entry-uri la nivel de zi (e.g. dacă ai tabele care stochează doar "în săptămâna X a lucrat Z ore") atunci ar trebui s-o modifici mai întâi ca să aibă (e.g. să stocheze "în ziua Y a lucrat Z ore").
+1. Baza de date pentru pontaj (timesheet):
+  Se utilizează baza de date relațională creată anterior pentru gestionarea pontajului. Este esențial ca aceasta să conțină înregistrări detaliate la nivel de zi (ex. "pe data Y s-au lucrat Z ore"). Dacă datele sunt agregate doar săptămânal (ex. "în săptămâna X s-au lucrat Z ore"), schema trebuie ajustată pentru a permite detalii zilnice.
 
-2. un tabel / DB de leave/absences, similar cu cel pentru timesheets (look at Endava's own in Oracle Fusion as an example)
+2. Tabel pentru absențe:
+    O structură dedicată care reflectă informațiile despre concedii și alte tipuri de absențe, similară cu ceea ce există în Oracle Fusion (Endava).
 
-3. cel puțin două CSV-uri de attendance de pe folderul de OneDrive pe care ni l-a pus în mail (e attendance-ul de la sesiunile de ETL)
+3. Cel puțin două fișiere CSV cu attendance:
+    Fișierele de prezență preluate de pe OneDrive (conform indicațiilor din e-mail), reprezentând participarea la sesiunile de ETL.
 
-4. un ??? (eu lucrez cu un Excel file?) cu informații despre exam-related absences, cam cum e pe pagina ceea internă pe care spun oamenii când o să fie absenți pentru facultate. La ăsta, era cerință să fie oamenii pe rânduri și data pe coloană, and then each cell conține câte ore ai fost plecat ziua aia
+4. Fișier Excel cu absențe legate de examene:
+    Acest fișier conține informații despre absențele cauzate de activități academice (ex. examene, colocvii), unde fiecare rând corespunde unui angajat, iar fiecare coloană unei date. Valorile din celule indică numărul de ore absentate în ziua respectivă.
 
-### Outputs
+## Rezultate așteptate (Outputs)
 
-1. O ceva formă de query (eu cred că fac o procedură?) pentru "Employee at Date": îi specifici un angajat și o dată, și el îți spune un breakdown de ce a făcut angajatul în ziua aia, e.g. 4 ore la birou, 2 ore exam leave, 1.5 ore sesiunea de ETL, 1.5 ore sesiunea de Git. Din câte știu nu există un format exact pentru output.
+1. Raport punctual pentru un angajat la o dată specifică ("Employee at Date"):
+    Se solicită o procedură (sau altă formă de interogare) care, dat un angajat și o anumită dată calendaristică, oferă o defalcare clară a activităților din acea zi. Exemplu: "4 ore la birou, 2 ore absență academică, 1.5 ore în sesiune ETL, 1.5 ore în sesiune Git".
 
-2. O ceva formă de raport lunar (I might make a view / materialized view?) care să indice cumva ce a făcut fiecare angajat în luna aia. For instance o variantă ar fi un bulleted list la fiecare angajat în care să zică "a lucrat X ore, a participat la training session-ul de A și de B, a avut concediu între L și M, etc.". Nici aici nu e un format super-clar definit, din câte știu.
+2. Raport lunar pentru activitatea angajaților:
+    Se dorește un raport la nivel de lună (ex. view sau materialized view) care să ofere o sinteză a activității fiecărui angajat. Formatul poate include o listă descriptivă per angajat, de tipul: "a lucrat X ore, a participat la sesiunile de training A și B, a avut concediu în perioada L–M" etc.
